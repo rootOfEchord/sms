@@ -9,5 +9,9 @@
 </template>
 
 <style lang="scss">
-  @import './assets/styles/common'
+  @import './assets/styles/common';
+  #app{
+    width: 100%;
+    height: 100%;
+  }
 </style>
