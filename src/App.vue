@@ -14,4 +14,8 @@
     width: 100%;
     height: 100%;
   }
+  //全局公共样式
+  .el-card__header{
+    background-color: #f2f2f2;
+  }
 </style>

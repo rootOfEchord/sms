@@ -5,10 +5,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: '我是蒋劲的token'
+    token: '',
+    realName: ''
   },
   mutations: {
-
+    //设置token
+    setToken(state, newData) {
+      state.token = newData
+    },
+    setRealName(state, newData) {
+      state.realName = newData
+    }
   },
   actions: {
 

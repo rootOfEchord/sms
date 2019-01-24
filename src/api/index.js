@@ -8,9 +8,8 @@ axios.defaults.baseURL = 'api/'
 //请求拦截
 axios.interceptors.request.use(
   config => {
-    console.log(store.state.token);
     if (store.state.token) { // 判断是否存在token，如果存在的话，则每个http header都加上token
-      config.headers['X-Token'] = '222222'
+      config.headers['X-Token'] = store.state.token
     }
     return config;
   },

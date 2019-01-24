@@ -7,10 +7,9 @@ Vue.use(Router)
 export default new Router({
   // mode: 'history',
   base: process.env.BASE_URL,
-  routes: [
-    {
+  routes: [{
       path: '/',
-      redirect: '/login'  //根路径重定向到登录页面
+      redirect: '/login' //根路径重定向到登录页面
     },
     {
       path: '/login',
@@ -20,10 +19,24 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Home.vue')
+      component: () => import('./views/Home.vue'),
+      children: [{
+          path: '/',
+          component: () => import('@/views/page/goods_echarts.vue'),
+          meta: [],
+        },
+        {
+          path: 'addAccount',
+          component: () => import('@/views/page/add_account.vue'),
+          meta: ['账号管理', '添加账号'],
+        },
+        {
+          path: 'listAccount',
+          component: () => import('@/views/page/list_account.vue'),
+          meta: ['账号管理', '管理账号'],
+        }
+      ]
+
     }
   ]
 })
