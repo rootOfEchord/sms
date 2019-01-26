@@ -9,10 +9,10 @@
           <div class="aside-link">
             <router-link :to="{ path: '/home' }">首页管理</router-link>
             <b>|</b>
-            <router-link :to="{ path: '' }">退出系统</router-link>
+            <a @click="signOut" href="#">退出系统</a>
           </div>
         </div>
-          <el-menu unique-opened @open="handleOpen" @close="handleClose" router :default-active="$router.currentRoute.path">
+          <el-menu unique-opened router :default-active="$route.path">
              <el-submenu index="1">
                <template slot="title">
                  <i class="el-icon-goods"></i>
@@ -47,7 +47,7 @@
                </template>
                <el-menu-item index="/home/listAccount">管理账号</el-menu-item>
                <el-menu-item index="/home/addAccount">添加账号</el-menu-item>
-               <el-menu-item index="4-3">修改密码</el-menu-item>
+               <el-menu-item index="/home/editAccount">修改密码</el-menu-item>
              </el-submenu>
            </el-menu>
       </el-aside>
@@ -64,7 +64,7 @@
 
 <script>
   import MyHeader from '@/components/Header'
-  import {getStore} from '@/config/mUtils'
+  import {getStore,removeStore} from '@/config/mUtils'
 export default {
   data() {
     return {
@@ -72,13 +72,11 @@ export default {
     }
   },
   methods:{
-    handleOpen(key, keyPath) {
-       console.log(this.$store);
-
-     },
-     handleClose(key, keyPath) {
-       console.log(key, keyPath);
-     }
+    signOut(){
+      //清除localstoreage里的所有用户信息并跳转到登录页面
+      window.localStorage.clear()
+      this.$router.replace('/login')
+    }
   },
   mounted(){
     //获取用户信息存入store

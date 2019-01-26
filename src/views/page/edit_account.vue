@@ -2,30 +2,21 @@
   <div class="add-account">
     <el-card class="box-card">
       <div slot="header">
-        <span>添加账号</span>
+        <span>修改密码</span>
       </div>
       <div >
         <el-form :model="ruleForm" label-position="top" label-width="80px" status-icon :rules="rules" ref="ruleForm" >
-          <el-form-item prop="userName" label="用户名">
-            <el-input type="text" v-model="ruleForm.userName"  placeholder="请输入用户名"></el-input>
+          <el-form-item prop="oldPwd" label="原密码">
+            <el-input type="password" v-model="ruleForm.oldPwd" autocomplete="off" placeholder="请输入用户名"></el-input>
           </el-form-item>
-          <el-form-item prop="userPwd" label="密码">
-            <el-input type="password" v-model="ruleForm.userPwd" autocomplete="off" placeholder="请输入密码"></el-input>
+          <el-form-item prop="newPwd" label="新密码">
+            <el-input type="password" v-model="ruleForm.newPwd" autocomplete="off" placeholder="请输入密码"></el-input>
           </el-form-item>
-          <el-form-item prop="checkPwd" label="确认密码">
+          <el-form-item prop="checkPwd" label="确认新密码">
             <el-input type="password" v-model="ruleForm.checkPwd" autocomplete="off" placeholder="请再次输入密码"></el-input>
           </el-form-item>
-          <el-form-item prop="realName" label="管理员姓名">
-            <el-input type="text" v-model="ruleForm.realName"  placeholder="请输入管理员姓名"></el-input>
-          </el-form-item>
-          <el-form-item label="选择用户组">
-              <el-select v-model="ruleForm.userGroup">
-                  <el-option label="管理员" value="管理员"></el-option>
-                  <el-option label="超级管理员" value="超级管理员"></el-option>
-              </el-select>
-          </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">修改</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -34,13 +25,13 @@
 </template>
 
 <script>
-import {addUserAccount} from '@/api/api'
+import {editUserPwd} from '@/api/api'
 export default {
   data(){
     var validatePass = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm.userPwd) {
+          callback(new Error('请再次输入新密码'));
+        } else if (value !== this.ruleForm.newPwd) {
           callback(new Error('两次输入密码不一致!'));
         } else {
           callback();
@@ -48,19 +39,17 @@ export default {
       };
     return{
       ruleForm: {
-         userName: '',
-         userPwd: '',
-         userGroup: '管理员',
-         checkPwd: '',
-         realName: ''
+         oldPwd: '',
+         newPwd: '',
+         checkPwd: ''
        },
        //表单验证规则
        rules: {
-         userName: [
-           { required: true, message: '请输入用户名', trigger: 'blur' }
+         oldPwd: [
+           { required: true, message: '请输入旧密码', trigger: 'blur' }
          ],
-         userPwd: [
-           { required: true, message: '请输入密码', trigger: 'blur' },
+         newPwd: [
+           { required: true, message: '请输入新密码', trigger: 'blur' },
             { min: 6, max: 32, message: '长度在 6 到 32 个字符', trigger: 'blur' }
          ],
          checkPwd: [
@@ -73,10 +62,12 @@ export default {
     submitForm(formName) {
           this.$refs[formName].validate((valid) => {
             if (valid) {
-              addUserAccount(this.ruleForm).then((res)=>{
+              editUserPwd(this.ruleForm).then((res)=>{
                 this.$myMessage(res)
                 if(res.isOk){
-                  this.$router.push('/home/listAccount')
+                  //密码修改成功清除用户信息并跳转到登录页面
+                  window.localStorage.clear()
+                  this.$router.replace('/login')
                 }
               }).catch((err)=>{
                 console.log(err);

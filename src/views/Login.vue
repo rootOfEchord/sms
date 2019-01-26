@@ -52,7 +52,7 @@ export default {
          ],
          userPwd: [
            { required: true, message: '请输入密码', trigger: 'blur' },
-            { min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur' }
+            { min: 6, max: 32, message: '长度在 6 到 32 个字符', trigger: 'blur' }
          ]
        }
     }
@@ -63,22 +63,17 @@ export default {
           this.$refs[formName].validate((valid) => {
             if (valid) {
               login(this.ruleForm).then((res)=>{
-                console.log(res.data);
-                if(res.data.isOk){
-                  setStore('token',res.data.token)
-                  setStore('realName',res.data.realName)
-                  //弹出框
-                  this.$myMessage(res.data)
+                //弹出框
+                this.$myMessage(res)
+                if(res.isOk){
+                  setStore('token',res.token)
+                  setStore('realName',res.realName)
                   //跳转到主页
-                  this.$router.push('/home')
+                  this.$router.replace('/home')
                 }
 
               })
             } else {
-              this.$message({
-                message: '登录成功',
-                type: 'success'
-              });
               return false;
             }
           });

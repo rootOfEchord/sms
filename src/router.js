@@ -34,6 +34,11 @@ export default new Router({
           path: 'listAccount',
           component: () => import('@/views/page/list_account.vue'),
           meta: ['账号管理', '管理账号'],
+        },
+        {
+          path: 'editAccount',
+          component: () => import('@/views/page/edit_account.vue'),
+          meta: ['账号管理', '修改密码'],
         }
       ]
 

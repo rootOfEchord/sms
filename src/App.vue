@@ -18,4 +18,8 @@
   .el-card__header{
     background-color: #f2f2f2;
   }
+  .el-message{
+    min-width: 200px;
+    text-align: center;
+  }
 </style>
