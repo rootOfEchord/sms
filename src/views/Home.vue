@@ -7,38 +7,34 @@
           <h2>惠利多超市管理</h2>
           <p>您好 {{$store.state.realName}}</p>
           <div class="aside-link">
-            <router-link :to="{ path: '/home' }">首页管理</router-link>
+            <span @click="closeAllMeun" >首页管理</span>
             <b>|</b>
-            <a @click="signOut" href="#">退出系统</a>
+            <span @click="signOut" >退出系统</span>
           </div>
         </div>
-          <el-menu unique-opened router :default-active="$route.path">
+          <el-menu unique-opened router :default-active="$route.path" ref="menu">
              <el-submenu index="1">
                <template slot="title">
                  <i class="el-icon-goods"></i>
                  <span>商品管理</span>
                </template>
-               <el-menu-item index="1-1">商品管理</el-menu-item>
-               <el-menu-item index="1-2">添加商品</el-menu-item>
-               <el-menu-item index="1-3">商品分类</el-menu-item>
+               <el-menu-item index="/home/listGoods">商品管理</el-menu-item>
+               <el-menu-item index="/home/addGoods">添加商品</el-menu-item>
              </el-submenu>
              <el-submenu index="2">
                <template slot="title">
                  <i class="el-icon-tickets"></i>
                  <span>库存管理</span>
                </template>
-               <el-menu-item index="2-1">库存管理</el-menu-item>
-               <el-menu-item index="2-2">商品入库</el-menu-item>
-               <el-menu-item index="2-3">商品出库</el-menu-item>
+               <el-menu-item index="/home/goodsStoreList">库存管理</el-menu-item>
+               <el-menu-item index="/home/goodsSell">商品出库</el-menu-item>
              </el-submenu>
              <el-submenu index="3">
                <template slot="title">
                  <i class="el-icon-tickets"></i>
                  <span>商品统计图</span>
                </template>
-               <el-menu-item index="3-1">库存管理</el-menu-item>
-               <el-menu-item index="3-2">商品入库</el-menu-item>
-               <el-menu-item index="3-3">商品出库</el-menu-item>
+               <el-menu-item index="/home/goodsSellEchart">销量统计</el-menu-item>
              </el-submenu>
              <el-submenu index="4">
                <template slot="title">
@@ -76,6 +72,12 @@ export default {
       //清除localstoreage里的所有用户信息并跳转到登录页面
       window.localStorage.clear()
       this.$router.replace('/login')
+    },
+    closeAllMeun(){
+      this.$router.push('/home')
+      this.$nextTick(()=>{
+        this.$refs.menu.openedMenus=[]
+      })
     }
   },
   mounted(){
@@ -116,7 +118,8 @@ export default {
             font-weight: normal;
             margin: 0 10px;
           }
-          a{
+          span{
+            cursor: pointer;
             color: #d1d0cf;
             &:hover{
               color: #fff;

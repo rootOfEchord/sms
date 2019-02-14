@@ -46,3 +46,17 @@ export const dateFtt = (fmt, timestamp) => { //author: meizz
       fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
   return fmt;
 }
+
+// /**
+//  * 替换键名
+//  * obj: arr[{}]
+//  * option: {newKey:oldKey}
+//  */
+// export const changeKey = (obj,option) => {
+//   let keys = Object.keys(option)
+//   obj.map(item=>{
+//       let o = {}
+//       keys.forEach(v=>{o[v] = item[option[v]]})
+//       return o
+//   })
+// }

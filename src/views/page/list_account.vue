@@ -1,6 +1,6 @@
 <template>
   <div class="list-account-box">
-  <el-table  :data="tableData"  style="width: 100%" stripe>
+  <el-table  :data="tableData"  style="width: 100%" stripe border>
     <el-table-column  label="添加日期"  width="200">
       <template slot-scope="scope">
         <i class="el-icon-time"></i>

@@ -11,10 +11,10 @@
       <div class="form-box">
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" >
           <el-form-item prop="userName">
-            <el-input type="text" v-model="ruleForm.userName"  placeholder="请输入用户名"></el-input>
+            <el-input type="text" v-model="ruleForm.userName" autofocus placeholder="请输入用户名"></el-input>
           </el-form-item>
           <el-form-item prop="userPwd">
-            <el-input type="password" v-model="ruleForm.userPwd" autocomplete="off" placeholder="请输入密码"></el-input>
+            <el-input type="password" v-model="ruleForm.userPwd" @keyup.enter.native="submitForm('ruleForm')" autocomplete="off" placeholder="请输入密码"></el-input>
           </el-form-item>
           <div class="rember-pwd">
             <el-checkbox v-model="rember">记住密码</el-checkbox>

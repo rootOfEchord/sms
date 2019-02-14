@@ -1,8 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
 import {
-  Message,
-  Loading
+  Message
 } from 'element-ui'
 import router from '@/router'
 
@@ -13,9 +12,6 @@ axios.defaults.baseURL = 'api/'
 //请求拦截
 axios.interceptors.request.use(
   config => {
-    Loading.service({
-      text: 'Loading'
-    })
     if (store.state.token) { // 判断是否存在token，如果存在的话，则每个http header都加上token
       config.headers['X-Token'] = store.state.token
     }
@@ -30,7 +26,6 @@ axios.interceptors.request.use(
 
 //响应拦截
 axios.interceptors.response.use(res => {
-  Loading.service().close()
   if ('status' in res.data && res.data.status === 401) {
     Message.error({
       message: res.data.msg
@@ -42,7 +37,6 @@ axios.interceptors.response.use(res => {
   }
   return Promise.reject(res)
 }, err => {
-  Loading.service().close()
   if (err.response.status == 504 || err.response.status == 404) {
     Message.error({
       message: '服务器被吃了⊙﹏⊙∥'
@@ -60,9 +54,9 @@ axios.interceptors.response.use(res => {
 })
 
 //封装get方法
-export const fetch = (url, parmes = {}) => {
+export const fetch = (url, params = {}) => {
   return axios.get(url, {
-    parmes
+    params
   })
 }
 
