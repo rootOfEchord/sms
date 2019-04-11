@@ -60,7 +60,7 @@
 
 <script>
   import MyHeader from '@/components/Header'
-  import {getStore,removeStore} from '@/config/mUtils'
+  import {getStore} from '@/config/mUtils'
 export default {
   data() {
     return {

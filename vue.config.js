@@ -1,6 +1,7 @@
 // vue.config.js
 module.exports = {
   devServer: {
+    open: true, // 启动服务后是否打开浏览器
     proxy: {
       '/api': {
         target: 'http://localhost:666/', // target host
